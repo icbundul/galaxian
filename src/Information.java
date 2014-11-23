@@ -44,10 +44,9 @@ public class Information {
 		 
 		g.setFont(new Font("Arial", Font.ITALIC, 12));
 		g.setColor(color1);
-		g.drawString(" --- P A U S E D ---", x, y);
-		//g.setFont(new Font("Arial", Font.ITALIC, 12));
-		//g.drawString("FPS: " + averageFPS, x, y + 22);
-		//g.drawString("Num bullets: " + bullets, x, y + 12);
+		g.drawString(" --- I N F O ---", x, y);
+		g.drawString("FPS: " + averageFPS, x, y + 25);
+		g.drawString("Num bullets: " + bullets, x, y + 12);
 	}
 }
 

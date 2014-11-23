@@ -239,6 +239,8 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 			int rand = (int) (Math.random() * neprijatelji.size());
 			neprijatelji.get(rand).setOnMove(true);
 		}
+		
+		info.update(meci.size(),averageFPS);
 	}
 	
 	private void gameRender() {
@@ -345,12 +347,14 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 			running = false;
 		}
 		if (keyCode == KeyEvent.VK_P) {
-			
-			info.setinfo();
 			if (isPaused)
 			  isPaused = false;
 			else
 			  isPaused = true;
+		}
+		// INFO
+		if (keyCode == KeyEvent.VK_I) {
+			info.setinfo(); 
 		}
 	}
 

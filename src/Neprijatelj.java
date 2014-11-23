@@ -30,6 +30,7 @@ public class Neprijatelj {
 	private volatile boolean onMove;
 	private volatile boolean fristLap;
 	private volatile boolean isLeft;
+	private boolean firing;
 	
 	public Neprijatelj() {
 		
@@ -53,6 +54,7 @@ public class Neprijatelj {
 		dead = false;
 		onMove = false;
 		fristLap = false;
+		firing = false;
 	}
 	
 	public double getx() { return x; }
@@ -62,6 +64,7 @@ public class Neprijatelj {
 	public void setX(double x) { this.x = x; }
 	public void setY(double y) { this.y = y; }
 	public void setIsLeft(boolean b) { this.isLeft = b; }
+	public void setFiring(boolean b) { this.firing = b; }
 	
 	public boolean isDead() { return dead; }
 	public boolean isMoving() { return onMove; }
@@ -131,7 +134,7 @@ public class Neprijatelj {
 			} 
 			
 			if (y < oldy) {
-				System.out.println("-------------------- Prosao kroz trecinu ---------------");
+				//System.out.println("-------------------- Prosao kroz trecinu ---------------");
 				dx = oldx - x;
 				dy = oldy - y;
 				fristLap = true;
@@ -161,9 +164,16 @@ public class Neprijatelj {
 	
 	///////////////////////////////////////////////////////
 	public void update() {		
-
+		
 		this.onMovement(); // kretanje neprijatelja
 		
+		if (onMove) {
+			if (this.x >= GalaxianPanel.igrac.getx() - GalaxianPanel.igrac.getr() &&
+					this.x <= GalaxianPanel.igrac.getx() + GalaxianPanel.igrac.getr()) {
+				GalaxianPanel.meci.add(new Metak(90, (int)x, (int)(y + r)));
+				
+			}
+		}
 	}
 	
 	public void draw(Graphics2D g) {
