@@ -12,10 +12,16 @@ public class Igrac {
 	private int dy;
 	private int speed;
 	
+	private int lives;
+	
 	private Color color1;
+	private Color color2;
 	
 	private boolean left;
 	private boolean right;
+	
+	private boolean recovering;
+	private long recoveryTimer;
 	
 	private boolean firing;
 	private long firingTimer;
@@ -31,11 +37,17 @@ public class Igrac {
 		dy = 0;
 		speed = 10;
 		
+		lives = 3;
+		
 		color1 = Color.WHITE;
+		color2 = Color.RED;
 		
 		firing = false;
 		firingTimer = System.nanoTime();
 		firingDelay = 500;
+		
+		recovering = false;
+		recoveryTimer = 0;
 	}
 	
 	public int getx() { return x; }
@@ -45,7 +57,24 @@ public class Igrac {
 	public void setLeft(boolean b) { left = b; }
 	public void setRight(boolean b) { right = b; }
 	
+	public int getLives() { return lives; }
+	
 	public void setFiring(boolean b) { firing = b; }
+	
+	public boolean isRecovering() { return recovering; }
+	
+	public void loseLife() {
+		lives--;
+		recovering = true;
+		recoveryTimer = System.nanoTime();
+	}
+	
+	public void revive() {
+		lives = 3;
+		recovering = false;
+	}
+	
+	public boolean isDead() { return (lives <= 0); }
 	
 	public void update() {
 		
@@ -77,16 +106,38 @@ public class Igrac {
 				GalaxianPanel.meci.add(new Metak(270, x, y));
 			}
 		}
+		
+		// god mode oko 2sec
+		if (recovering) {
+			// koliko je vremena proslo nakon sto smo pogodeni
+			long elapsed = (System.nanoTime() - recoveryTimer) / 1000000;
+			if (elapsed > 2000) {
+				recovering = false;
+				recoveryTimer = 0;
+			}
+		}
 	}
 	
 	public void draw(Graphics2D g) {
-		g.setColor(color1);
-		g.fillOval(x - r, y - r, 2 * r, 2 * r);
 		
-		g.setStroke(new BasicStroke(3));
-		g.setColor(color1.darker());
-		g.drawOval(x - r, y - r, 2 * r, 2 * r);
-		g.setStroke(new BasicStroke(1));
+		if (recovering) {
+			g.setColor(color2);
+			g.fillOval(x - r, y - r, 2 * r, 2 * r);
+			
+			g.setStroke(new BasicStroke(3));
+			g.setColor(color2.darker());
+			g.drawOval(x - r, y - r, 2 * r, 2 * r);
+			g.setStroke(new BasicStroke(1));
+		}
+		else {
+			g.setColor(color1);
+			g.fillOval(x - r, y - r, 2 * r, 2 * r);
+		
+			g.setStroke(new BasicStroke(3));
+			g.setColor(color1.darker());
+			g.drawOval(x - r, y - r, 2 * r, 2 * r);
+			g.setStroke(new BasicStroke(1));
+		}
 	}
 	
 }

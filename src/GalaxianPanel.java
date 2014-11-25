@@ -133,7 +133,18 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 				totalTime  = 0;
 			}
 		}
-
+		
+		g.setColor(new Color(0, 100, 255));
+		g.fillRect(0, 0, WIDTH, HEIGHT);
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Arial", Font.PLAIN, 24));
+		String s = "- G a m e  O v e r - ";
+		int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+		g.drawString(s, (WIDTH - length) / 2, HEIGHT / 2);
+		//s = "Final score: " + player.getScore();
+		//length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+		//g.drawString(s, (WIDTH - length) / 2, HEIGHT / 2 + 30);
+		gameDraw();
 	}
 
 	private void gameUpdate() {	
@@ -176,6 +187,34 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 			}
 		}
 		
+		// igrac neprijatelj kolizija
+		if (!igrac.isRecovering()) {
+			int px = igrac.getx();
+			int py = igrac.gety();
+			int pr = igrac.getr();
+			
+			for (int i = 0; i < neprijatelji.size(); i++) {
+				Neprijatelj np = neprijatelji.get(i);
+				if (np.isMoving()) {
+					double npx = np.getx();
+					double npy = np.gety();
+					double npr = np.getr();
+					
+					double dx = px - npx;
+					double dy = py - npy;
+					double dist = Math.sqrt(dx * dx + dy * dy);
+					
+					if (dist < pr + npr) {
+						igrac.loseLife(); // Pogodak
+					}
+				}	
+			}
+		}
+		
+		if (igrac.isDead()) {
+			running = false;
+		}
+		
 		//meci-neprijatelj kolizija
 		for (int i = 0; i < meci.size(); i++) {
 			
@@ -196,7 +235,6 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 				double dist = Math.sqrt(dx * dx + dy * dy);
 				
 				if (dist < br + er) { // (udaljenost < radius) kolizija
-					System.out.println("Usao");
 					e.hit();
 					meci.remove(i);
 					i--;
@@ -260,12 +298,21 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 			g.setColor(Color.WHITE);	
 			String s = "- S T A G E  " + stageNumber + " -";
 			int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth(); //Sirina duzine sa piksela fonta
-			
 			int alpha = (int) (255 * Math.sin(3.14 * waveStartTimerDiff / waveDelay));
 			if (alpha > 255) alpha = 255;
 			g.setColor(new Color(255, 255, 255, alpha));
 			g.drawString(s, WIDTH / 2 - length / 2, HEIGHT / 2);
 		}
+		
+		// no of lives
+		for(int i = 0; i < igrac.getLives(); i++) {
+			g.setColor(Color.WHITE);
+			g.fillOval(20 + (20 * i), HEIGHT - 30, igrac.getr(), igrac.getr());
+			g.setStroke(new BasicStroke(3));
+			g.setColor(Color.WHITE.darker());
+			g.drawOval(20 + (20 * i), HEIGHT - 30, igrac.getr(), igrac.getr());
+			g.setStroke(new BasicStroke(1));
+			}
 		
 		// igrac draw
 		igrac.draw(g);

@@ -169,7 +169,8 @@ public class Neprijatelj {
 		
 		if (onMove) {
 			if (this.x >= GalaxianPanel.igrac.getx() - GalaxianPanel.igrac.getr() &&
-					this.x <= GalaxianPanel.igrac.getx() + GalaxianPanel.igrac.getr()) {
+					this.x <= GalaxianPanel.igrac.getx() + GalaxianPanel.igrac.getr() &&
+					this.y < GalaxianPanel.igrac.gety()) {
 				GalaxianPanel.meci.add(new Metak(90, (int)x, (int)(y + r)));
 				
 			}
