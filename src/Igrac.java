@@ -103,7 +103,7 @@ public class Igrac {
 			if (elapsed > firingDelay) {
 				
 				firingTimer = System.nanoTime();
-				GalaxianPanel.meci.add(new Metak(270, x, y));
+				GalaxianPanel.meci.add(new Metak(270, x, y - r));
 			}
 		}
 		

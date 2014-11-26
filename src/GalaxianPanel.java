@@ -225,6 +225,7 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 			
 			for (int j = 0; j < neprijatelji.size(); j++) {
 				
+				// Neprijatelj
 				Neprijatelj e = neprijatelji.get(j);
 				double ex = e.getx();
 				double ey = e.gety();
@@ -240,6 +241,23 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 					i--;
 					break;
 				}
+				
+			  // igrac - metak kolizija
+			  double px = igrac.getx();
+			  double py = igrac.gety();
+			  double pr = igrac.getr();
+			  
+			  double dpx = bx - px;
+			  double dpy = by - py;
+			  double distp = Math.sqrt(dpx * dpx + dpy * dpy);
+			  
+			  if (distp < br + pr && !igrac.isRecovering()) {
+				  
+				  igrac.loseLife();
+				  meci.remove(i);
+				  i--;
+				  break;
+			  }	
 			}
 		}
 		
