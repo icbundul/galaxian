@@ -37,7 +37,7 @@ public class Igrac {
 		dy = 0;
 		speed = 10;
 		
-		lives = 3;
+		lives = 5;
 		
 		color1 = Color.WHITE;
 		color2 = Color.RED;
@@ -64,6 +64,11 @@ public class Igrac {
 	public boolean isRecovering() { return recovering; }
 	
 	public void loseLife() {
+		GalaxianPanel.explosions.add(new Explosion(20 + (20 * lives), 
+										GalaxianPanel.HEIGHT - 30, 
+										getr(), 
+										(getr() + 30))
+									);
 		lives--;
 		recovering = true;
 		recoveryTimer = System.nanoTime();

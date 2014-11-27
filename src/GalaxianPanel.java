@@ -26,6 +26,7 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 	public static ArrayList<Star> stars; 
 	public static ArrayList<Neprijatelj> neprijatelji;
 	public static ArrayList<Metak> meci;
+	public static ArrayList<Explosion> explosions;
 	
 	private long waveStartTimer;
 	private long waveStartTimerDiff;
@@ -81,6 +82,7 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 	
 		igrac = new Igrac();
 		neprijatelji = new ArrayList<Neprijatelj>();
+		explosions = new ArrayList<Explosion>();
 		stars = new ArrayList<Star>();
 		meci = new ArrayList<Metak>();
 		info = new Information();
@@ -177,6 +179,14 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 			neprijatelji.get(i).update();
 		}
 		
+		// explosions update
+		for (int i = 0; i < explosions.size(); i++) {
+			boolean remove = explosions.get(i).update();
+			if (remove) {
+				explosions.remove(i);
+				i--;
+			}
+		}
 		
 		// meci update
 		for(int i = 0; i < meci.size(); i++) {
@@ -263,9 +273,14 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 		
 		// provjera mrtvih neprijatelja
 		for (int i = 0; i < neprijatelji.size(); i++) {
+			
 			if (neprijatelji.get(i).isDead()) {
+				
+				Neprijatelj e = neprijatelji.get(i);
 				neprijatelji.remove(i);
 				i--;
+				
+				explosions.add(new Explosion(e.getx(), e.gety(), e.getr(), (e.getr() + 300)));
 			}	
 		}
 		
@@ -343,6 +358,11 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 		//meci draw
 		for (int i = 0; i < meci.size(); i++) {
 			meci.get(i).draw(g); 
+		}
+		
+		// explosion draw
+		for (int i = 0; i < explosions.size(); i++) {
+			explosions.get(i).draw(g);
 		}
 		
 		// info draw
