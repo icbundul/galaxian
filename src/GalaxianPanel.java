@@ -249,6 +249,7 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 					e.hit();
 					meci.remove(i);
 					i--;
+					explosions.add(new Explosion(e.getx(), e.gety(), e.getr(), (e.getr() + 10)));
 					break;
 				}
 				

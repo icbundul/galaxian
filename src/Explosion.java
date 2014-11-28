@@ -20,7 +20,7 @@ public class Explosion {
 	
 	public boolean update() {
 		
-		r += 2;
+		r += 4;
 		
 		if (r >= maxRadius) {
 			return true;
@@ -30,7 +30,7 @@ public class Explosion {
 	
 	public void draw(Graphics2D g) {
 		
-		alpha--;
+		alpha = alpha - 2;
 		if (alpha <= 0)
 			alpha = 1;
 		

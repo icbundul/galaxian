@@ -30,7 +30,11 @@ public class Neprijatelj {
 	private volatile boolean onMove;
 	private volatile boolean fristLap;
 	private volatile boolean isLeft;
+	
 	private boolean firing;
+	//private boolean hitting;
+	private double hitTimer;
+	
 	
 	public Neprijatelj() {
 		
@@ -49,12 +53,13 @@ public class Neprijatelj {
 		
 		color1 = Color.BLUE;
 		
-		health = 1;
+		health = 5;
 		hit = false;
 		dead = false;
 		onMove = false;
 		fristLap = false;
 		firing = false;
+		hitTimer = 0;
 	}
 	
 	public double getx() { return x; }
@@ -154,8 +159,10 @@ public class Neprijatelj {
 	}
 	
 	public void hit() {
+		
 		health--;
 		System.out.println(health);
+		
 		if (health <= 0)
 			dead = true;
 		
