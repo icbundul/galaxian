@@ -1,4 +1,9 @@
 import java.awt.*;
+import java.awt.image.*;
+
+import javax.imageio.ImageIO;
+
+import java.io.File;
 
 public class Neprijatelj {
 
@@ -30,7 +35,7 @@ public class Neprijatelj {
 	private volatile boolean onMove;
 	private volatile boolean fristLap;
 	private volatile boolean isLeft;
-	
+		
 	private boolean firing;
 	//private boolean hitting;
 	private double hitTimer;
@@ -53,13 +58,13 @@ public class Neprijatelj {
 		
 		color1 = Color.BLUE;
 		
-		health = 5;
+		health = 3;
 		hit = false;
 		dead = false;
 		onMove = false;
 		fristLap = false;
 		firing = false;
-		hitTimer = 0;
+		hitTimer = 0;		
 	}
 	
 	public double getx() { return x; }
@@ -185,6 +190,7 @@ public class Neprijatelj {
 	}
 	
 	public void draw(Graphics2D g) {
+			
 		g.setColor(color1);
 		g.fillOval((int)(x - r), (int)(y - r), 2 * r, 2 * r);
 	

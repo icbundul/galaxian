@@ -10,6 +10,8 @@ public class Animation {
 	
 	public Animation() { }
 	
+	int getCurrentFrame() { return currentFrame; }
+	
 	public void setFrames(BufferedImage[] images) {
 		frames = images;
 		
@@ -37,6 +39,7 @@ public class Animation {
 	}
 	
 	public BufferedImage getImage() {
+
 		return frames[currentFrame];
 	}
 }

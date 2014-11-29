@@ -1,5 +1,7 @@
 import java.awt.*;
-
+import java.awt.image.*;
+import javax.imageio.ImageIO;
+import java.io.File;
 
 public class Igrac {
 	
@@ -11,6 +13,9 @@ public class Igrac {
 	private int dx;
 	private int dy;
 	private int speed;
+	
+	private int width;
+	private int height;
 	
 	private int lives;
 	
@@ -27,6 +32,12 @@ public class Igrac {
 	private long firingTimer;
 	private long firingDelay;
 	
+	private Animation animation;
+	private BufferedImage[] idleSprites;
+	private BufferedImage[] leftSprites;
+	private BufferedImage[] rightSprites;
+	private BufferedImage[] hitSprites;
+	
 	public Igrac() {
 		
 		x = GalaxianPanel.WIDTH / 2;
@@ -39,6 +50,9 @@ public class Igrac {
 		
 		lives = 5;
 		
+		width = 40;
+		height = 42;
+		
 		color1 = Color.WHITE;
 		color2 = Color.RED;
 		
@@ -48,6 +62,36 @@ public class Igrac {
 		
 		recovering = false;
 		recoveryTimer = 0;
+		
+		// igrac
+		try {
+			// ucitajmo sprites
+			idleSprites = new BufferedImage[3];
+			leftSprites = new BufferedImage[3];
+			rightSprites = new BufferedImage[3];
+			hitSprites = new BufferedImage[2];
+			
+			BufferedImage image = ImageIO.read(new File("graphics/spaceshipsprites.gif"));
+			idleSprites[0] = image.getSubimage(38, 0,  40, 40);
+			idleSprites[1] = image.getSubimage(38, 40, 40, 41);
+			idleSprites[2] = image.getSubimage(38, 86, 40, 41);
+			
+			leftSprites[0] = image.getSubimage(0, 0,  29, 40);
+			leftSprites[1] = image.getSubimage(0, 40, 29, 41);
+			leftSprites[2] = image.getSubimage(0, 86, 29, 41);
+			
+			rightSprites[0] = image.getSubimage(84, 0,  29, 40);
+			rightSprites[1] = image.getSubimage(84, 40, 29, 41);
+			rightSprites[2] = image.getSubimage(84, 86, 29, 41);
+			
+			hitSprites[0] = null;
+			hitSprites[1] = image.getSubimage(38, 40, 40, 41);			
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}		
+		
+		animation = new Animation();
 	}
 	
 	public int getx() { return x; }
@@ -112,37 +156,47 @@ public class Igrac {
 			}
 		}
 		
+		if (!left && !right) {
+		animation.setFrames(idleSprites);
+		animation.setDelay(500);
+		}
+		
+		if (left) {
+			animation.setFrames(leftSprites);
+			animation.setDelay(500);
+		}
+		
+		if (right) {
+			animation.setFrames(rightSprites);
+			animation.setDelay(500);
+		}
+		
 		// god mode oko 2sec
 		if (recovering) {
-			// koliko je vremena proslo nakon sto smo pogodeni
+			
+			animation.setFrames(hitSprites);
+			animation.setDelay(100);
+			// koliko je vremena proslo nakon sto smo pogodeni			
 			long elapsed = (System.nanoTime() - recoveryTimer) / 1000000;
 			if (elapsed > 2000) {
 				recovering = false;
 				recoveryTimer = 0;
 			}
 		}
+		
+		animation.update();
 	}
 	
 	public void draw(Graphics2D g) {
 		
-		if (recovering) {
-			g.setColor(color2);
-			g.fillOval(x - r, y - r, 2 * r, 2 * r);
+			g.drawImage(
+					animation.getImage(), 
+					x - (2 * r), 
+					y - (2 * r), 
+					width, 
+					height, 
+					null);
 			
-			g.setStroke(new BasicStroke(3));
-			g.setColor(color2.darker());
-			g.drawOval(x - r, y - r, 2 * r, 2 * r);
-			g.setStroke(new BasicStroke(1));
-		}
-		else {
-			g.setColor(color1);
-			g.fillOval(x - r, y - r, 2 * r, 2 * r);
-		
-			g.setStroke(new BasicStroke(3));
-			g.setColor(color1.darker());
-			g.drawOval(x - r, y - r, 2 * r, 2 * r);
-			g.setStroke(new BasicStroke(1));
-		}
 	}
 	
 }

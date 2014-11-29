@@ -249,7 +249,7 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 					e.hit();
 					meci.remove(i);
 					i--;
-					explosions.add(new Explosion(e.getx(), e.gety(), e.getr(), (e.getr() + 10)));
+					explosions.add(new Explosion(e.getx(), e.gety(), e.getr(), (e.getr() + 5)));
 					break;
 				}
 				
@@ -280,7 +280,6 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 				Neprijatelj e = neprijatelji.get(i);
 				neprijatelji.remove(i);
 				i--;
-				
 				explosions.add(new Explosion(e.getx(), e.gety(), e.getr(), (e.getr() + 300)));
 			}	
 		}
@@ -289,15 +288,15 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 		for (int i = 0; i < neprijatelji.size(); i++) {
 			if (neprijatelji.get(i).getx() > WIDTH - neprijatelji.get(i).getr() && !neprijatelji.get(i).isMoving()) {
 				for (int j = 0; j < neprijatelji.size(); j++) {
-					neprijatelji.get(j).startAnim();
 					neprijatelji.get(j).setIsLeft(true);
+					neprijatelji.get(j).startAnim();
 					}
 				 break;
 				}
 			if (neprijatelji.get(i).getx() < neprijatelji.get(i).getr() && !neprijatelji.get(i).isMoving()) {
 				for (int j = 0; j < neprijatelji.size(); j++) {
-					neprijatelji.get(j).startAnim();
 					neprijatelji.get(j).setIsLeft(false);
+					neprijatelji.get(j).startAnim();
 					}
 				 break;
 				}
