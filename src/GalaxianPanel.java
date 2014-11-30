@@ -422,7 +422,8 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 		int pozy = HEIGHT / 8;
 		
 		int rank = 0, type = 0;
-		
+		waveDelay = 4000;
+			
 		if (stage == 1) {
 			rank = 1;
 			type = 1;
@@ -439,7 +440,7 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 		else if (stage == 4) {
 			rank = 1;
 			type = 4;
-			waveDelay = 3000;
+			waveDelay = 2000;
 		}
 		else if (stage == 5) {
 			rank = 2;
@@ -476,9 +477,9 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 		else if (stage == 12) {
 			rank = 3;
 			type = 4;
-			waveDelay = 1000;
+			waveDelay = 500;
 		}		
-		waveDelay = 1000;
+		
 		neprijatelji.clear();
 		
 		for(int i = 0; i < 22; i++) {
