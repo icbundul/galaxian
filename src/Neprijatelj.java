@@ -22,6 +22,9 @@ public class Neprijatelj {
 	private double speed;
 	private double startSpeed;
 	
+	private int type;
+	private int rank;
+	
 	private int health;
 	
 	private Color color1;
@@ -40,25 +43,100 @@ public class Neprijatelj {
 	//private boolean hitting;
 	private double hitTimer;
 	
-	
-	public Neprijatelj() {
+	public Neprijatelj(int type, int rank) {
+		
+		this.type = type;
+		this.rank = rank;
 		
 		x = 10;
 		y = 10;
 		
-		r = 10;
-		
+		if (type == 1) {
+			color1 = Color.BLUE;
+			if (rank == 1)
+			  {
+				r = 10;
+				speed = 5;
+				health = 1;
+			  }
+			if (rank == 2) {
+				r = 10;
+				speed = 5;
+				health = 2;
+			}
+			if (rank == 3) {
+				r = 15;
+				speed = 7;
+				health = 3;
+			}
+			if (rank == 4) {
+				r = 20;
+				speed = 7;
+				health = 4;
+			}
+		}
+		else if (type == 2) {
+			color1 = Color.GREEN;
+			if (rank == 1)
+			  {
+				r = 10;
+				speed = 7;
+				health = 4;
+			  }
+			if (rank == 2) {
+				r = 8;
+				speed = 5;
+				health = 4;
+			}
+			if (rank == 3) {
+				r = 8;
+				speed = 8;
+				health = 4;
+			}
+			if (rank == 4) {
+				r = 20;
+				speed = 5;
+				health = 6;
+			}
+		}
+		else if (type == 3) {
+			color1 = Color.RED;
+			if (rank == 1)
+			  {
+				r = 10;
+				speed = 5;
+				health = 6;
+			  }
+			if (rank == 2) {
+				r = 10;
+				speed = 10;
+				health = 6;
+			}
+			if (rank == 3) {
+				r = 8;
+				speed = 10;
+				health = 4;
+			}
+			if (rank == 4) {
+				r = 30;
+				speed = 5;
+				health = 12;
+			}
+		}
+		else {
+			color1 = Color.ORANGE;			
+			r = 10;
+			speed = type;
+			health = rank;
+		}
+				
 		dx = 6;
 		dy = 0;
 		angle = 0;
 		
-		speed = 6;
 		startSpeed = 6;
 		haltTimer = 0;
-		
-		color1 = Color.BLUE;
-		
-		health = 3;
+				
 		hit = false;
 		dead = false;
 		onMove = false;
@@ -78,6 +156,9 @@ public class Neprijatelj {
 	
 	public boolean isDead() { return dead; }
 	public boolean isMoving() { return onMove; }
+	
+	public int getRank() { return rank; }
+	public int getType() { return type; }
 	
 	public synchronized  void startAnim() {
 		if (onMove == false) {	

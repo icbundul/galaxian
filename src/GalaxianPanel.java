@@ -39,6 +39,7 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 	private int triggerLength = 6000;
 	private Information info;
 	
+	private Score scoring;
 	
 	// KONSTRUKTOR
 	public GalaxianPanel() {
@@ -86,6 +87,7 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 		stars = new ArrayList<Star>();
 		meci = new ArrayList<Metak>();
 		info = new Information();
+		scoring = new Score();
 		
 		//for (int i = 0; i < 200; i++) {
 		//	stars.add(new Star());
@@ -120,6 +122,10 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 			URDTimeMills = (System.nanoTime() - startTime) / 1000000; // ms
 			waitTime = targetTime - URDTimeMills;
 			
+			if (waitTime < 0) {
+				waitTime = 5;	
+			}
+			
 			try {
 				Thread.sleep(waitTime);
 			}
@@ -135,6 +141,7 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 				totalTime  = 0;
 			}
 		}
+		scoring.setHighScore(igrac.getScore());
 		
 		g.setColor(new Color(0, 100, 255));
 		g.fillRect(0, 0, WIDTH, HEIGHT);
@@ -143,9 +150,17 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 		String s = "- G a m e  O v e r - ";
 		int length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
 		g.drawString(s, (WIDTH - length) / 2, HEIGHT / 2);
-		//s = "Final score: " + player.getScore();
-		//length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
-		//g.drawString(s, (WIDTH - length) / 2, HEIGHT / 2 + 30);
+		s = "Final score: " + igrac.getScore();
+		length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+		g.drawString(s, (WIDTH - length) / 2, HEIGHT / 2 + 30);
+		
+		if (scoring.isRecord()) {
+			g.setColor(Color.RED);
+			s = "- Congratulations This is High Score -";
+			length = (int) g.getFontMetrics().getStringBounds(s, g).getWidth();
+			g.drawString(s, (WIDTH - length) / 2, HEIGHT / 2 + 60);
+		}
+		
 		gameDraw();
 	}
 
@@ -168,7 +183,7 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 		}
 		
 		if (neprijatelji.size() == 0) {
-			dodajNeprijatelje();
+			dodajNeprijatelje(stageNumber);
 		}
 		
 		refreshStars(); // update zvjezde
@@ -276,8 +291,8 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 		for (int i = 0; i < neprijatelji.size(); i++) {
 			
 			if (neprijatelji.get(i).isDead()) {
-				
 				Neprijatelj e = neprijatelji.get(i);
+				igrac.addScore(e.getRank() + e.getType());
 				neprijatelji.remove(i);
 				i--;
 				explosions.add(new Explosion(e.getx(), e.gety(), e.getr(), (e.getr() + 300)));
@@ -347,6 +362,12 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 			g.setStroke(new BasicStroke(1));
 			}
 		
+		// draw player score
+		g.setColor(Color.WHITE);
+		g.setFont(new Font("Arial", Font.PLAIN, 14));
+		g.drawString("High Score: " + scoring.getHighScore(), WIDTH - 130, 30);
+		g.drawString("Score: " + igrac.getScore(), WIDTH - 130, 45);
+		
 		// igrac draw
 		igrac.draw(g);
 				
@@ -396,14 +417,76 @@ public class GalaxianPanel extends JPanel implements Runnable, KeyListener  {
 		}
 	}
 	
-	private void dodajNeprijatelje() {
+	private void dodajNeprijatelje(int stage) {
 		int pozx = WIDTH / 5;
 		int pozy = HEIGHT / 8;
 		
+		int rank = 0, type = 0;
+		
+		if (stage == 1) {
+			rank = 1;
+			type = 1;
+		}
+		else if (stage == 2) {
+			rank = 1;
+			type = 2;
+		}
+		else if (stage == 3) {
+			rank = 1;
+			type = 3;
+			waveDelay = 3000;
+		}
+		else if (stage == 4) {
+			rank = 1;
+			type = 4;
+			waveDelay = 3000;
+		}
+		else if (stage == 5) {
+			rank = 2;
+			type = 1;
+		}
+		else if (stage == 6) {
+			rank = 2;
+			type = 2;
+		}
+		else if (stage == 7) {
+			rank = 2;
+			type = 3;
+		}
+		else if (stage == 8) {
+			rank = 2;
+			type = 4;
+			waveDelay = 2000;
+		}
+		else if (stage == 9) {
+			rank = 3;
+			type = 1;
+			waveDelay = 3000;
+		}
+		else if (stage == 10) {
+			rank = 3;
+			type = 2;
+			waveDelay = 2000;
+		}
+		else if (stage == 11) {
+			rank = 3;
+			type = 3;
+			waveDelay = 1000;
+		}
+		else if (stage == 12) {
+			rank = 3;
+			type = 4;
+			waveDelay = 1000;
+		}		
+		waveDelay = 1000;
 		neprijatelji.clear();
 		
 		for(int i = 0; i < 22; i++) {
-			neprijatelji.add(new Neprijatelj());
+			if (stage <= 12)
+			  neprijatelji.add(new Neprijatelj(rank,type));
+			else
+			  neprijatelji.add(new Neprijatelj((int) (Math.random() * 4) + 1 ,(int) (Math.random() * 4) + 1));
+			
 			neprijatelji.get(i).setX(pozx);
 			neprijatelji.get(i).setY(pozy);
 			pozx += 50;

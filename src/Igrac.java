@@ -18,6 +18,7 @@ public class Igrac {
 	private int height;
 	
 	private int lives;
+	private int score;
 	
 	private Color color1;
 	private Color color2;
@@ -63,6 +64,8 @@ public class Igrac {
 		recovering = false;
 		recoveryTimer = 0;
 		
+		score = 0;
+		
 		// igrac
 		try {
 			// ucitajmo sprites
@@ -85,7 +88,7 @@ public class Igrac {
 			rightSprites[2] = image.getSubimage(84, 86, 29, 41);
 			
 			hitSprites[0] = null;
-			hitSprites[1] = image.getSubimage(38, 40, 40, 41);			
+			hitSprites[1] = idleSprites[1];			
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -97,6 +100,7 @@ public class Igrac {
 	public int getx() { return x; }
 	public int gety() { return y; }
 	public int getr() { return r; }
+	public int getScore() { return score; }
 	
 	public void setLeft(boolean b) { left = b; }
 	public void setRight(boolean b) { right = b; }
@@ -104,6 +108,8 @@ public class Igrac {
 	public int getLives() { return lives; }
 	
 	public void setFiring(boolean b) { firing = b; }
+	
+	public void addScore(int i) { score += i; }; 
 	
 	public boolean isRecovering() { return recovering; }
 	

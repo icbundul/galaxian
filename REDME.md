@@ -1,27 +1,42 @@
-	Galaxian ver 0.01 
+	Galaxian ver 0.2
 ------------------------------
-Igra je u pred pocetnom stadiju razvoja. 
+Igra je u pocetnom stadiju razvoja. 
 Pisano u javi
 
-Komande: 
-<- Lijevo 
--> Desno, 
-y  Pucanje 
-p  Pauza
+Koristenje koda samo u svrhu učenja.
 
-To do lista:
+Komande: 
+<- 	Lijevo 
+-> 	Desno, 
+y  	Pucanje 
+p  	Pauza
+esc izlaz
+
+To do lista (-> ver 0.2) RJESENO
 x - Rijesiti kretanje neprijatelja pod triggerom (djelomicno rijeseno ima bugova :((( )
 x - Rijesiti prikazivanje metaka na ekranu
 x - Pauza , Start
 x - Rijesiti pucanje neprijatelja, kada je u ravnini sa igracem
 x - Napraviti koliziju neprijatelj - igrac
 x - Rijesiti koliziju neptijatelj - metak - igrac
-o - Postaviti energiju za igraca
+x - Postaviti energiju za igraca (No - postavljeno 5 zivota)
 x - Postaviti zivote za igraca
-o - Postaviti klasu eksplozija i prikazati je
-o - Postaviti score (mozda scoreboard)
-o - Dodati razlicite neprijatelje, mozda promjieniti nacin kretanja, brojnost
-o - Dodati levele
-o - Photoshop crtanje, sprites
+x - Postaviti klasu eksplozija i prikazati je
+x - Postaviti score (mozda scoreboard)
+x - Dodati razlicite neprijatelje, mozda promjieniti nacin kretanja, brojnost
+x - Dodati levele
+x - Photoshop crtanje, sprites
 
-:-) 
+bugovi i to do lista: (-> ver 0.3)
+
+o - kretanje neprijatelja (bugovito)
+o - dodati sprites za neprijatelja
+o - dodati powerup - ove
+o - dodati muziku i efekte
+o - dodati sekundarno oruzje na drugi botun
+
+bugovi i to do lista: (-> ver 0.4)
+
+o - Dodati meni i scoring listu
+
+:-)
