@@ -44,7 +44,7 @@ public class Information {
 		 
 		g.setFont(new Font("Arial", Font.ITALIC, 12));
 		g.setColor(color1);
-		g.drawString(" --- I N F O ---", x, y);
+		g.drawString(" --- INFO GALAXIAN ver 0.2 ---", x, y);
 		g.drawString("FPS: " + averageFPS, x, y + 25);
 		g.drawString("Num bullets: " + bullets, x, y + 12);
 	}

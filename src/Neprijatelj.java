@@ -55,72 +55,72 @@ public class Neprijatelj {
 			color1 = Color.BLUE;
 			if (rank == 1)
 			  {
-				r = 10;
+				r = 20;
 				speed = 5;
 				health = 1;
 			  }
 			if (rank == 2) {
-				r = 10;
+				r = 15;
 				speed = 5;
-				health = 2;
+				health = 1;
 			}
 			if (rank == 3) {
-				r = 15;
-				speed = 7;
-				health = 3;
+				r = 10;
+				speed = 5;
+				health = 1;
 			}
 			if (rank == 4) {
-				r = 20;
+				r = 10;
 				speed = 7;
-				health = 4;
+				health = 1;
 			}
 		}
 		else if (type == 2) {
 			color1 = Color.GREEN;
 			if (rank == 1)
 			  {
-				r = 10;
-				speed = 7;
-				health = 4;
-			  }
-			if (rank == 2) {
-				r = 8;
-				speed = 5;
-				health = 4;
-			}
-			if (rank == 3) {
-				r = 8;
-				speed = 8;
-				health = 4;
-			}
-			if (rank == 4) {
 				r = 20;
 				speed = 5;
-				health = 6;
+				health = 2;
+			  }
+			if (rank == 2) {
+				r = 15;
+				speed = 5;
+				health = 2;
+			}
+			if (rank == 3) {
+				r = 10;
+				speed = 7;
+				health = 2;
+			}
+			if (rank == 4) {
+				r = 10;
+				speed = 10;
+				health = 2;
 			}
 		}
 		else if (type == 3) {
 			color1 = Color.RED;
 			if (rank == 1)
 			  {
-				r = 10;
-				speed = 5;
-				health = 6;
+				r = 20;
+				speed = 7;
+				health = 3;
 			  }
 			if (rank == 2) {
-				r = 10;
+				r = 15;
 				speed = 10;
-				health = 6;
+				health = 3;
 			}
 			if (rank == 3) {
-				r = 8;
+				r = 10;
 				speed = 10;
 				health = 4;
 			}
 			if (rank == 4) {
-				r = 30;
-				speed = 5;
-				health = 12;
+				r = 50;
+				speed = 15;
+				health = 5;
 			}
 		}
 		else {
